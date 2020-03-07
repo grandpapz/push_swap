@@ -34,15 +34,12 @@ int main(int ac, char **av)
         av = arg_splt(&ac, &av);
     init_stacks(ms, ac);
     create_stack(ac, av, ms);
-    printf("A stack elements: ");
-    for (i = 0; i <= ms->a->len; i++)
-        printf("%d ", ms->a->stack[i]);
-    printf("\nB stack elements: ");
-    for (i = 0; i <= ms->b->len; i++)
-        printf("%d ", ms->b->stack[i]);
-    printf("\n Stack max: %d", ms->a->max);
-    printf("\n Stack min: %d", ms->a->min);
-    printf("\n Total elements in stack: %d", ms->total);
-    free(ms);
+    // printf("Stack A [TOP] < ---- [DNO]: ");
+    // for (i = ms->a->len - 1; i >= 0; i--)
+    //     printf("%d ", ms->a->stack[i]);
+    // printf("\nStack B [TOP] < ---- [DNO]: ");
+    // for (i = ms->b->len - 1; i >= 0; i--)
+    //     printf("%d ", ms->b->stack[i]);
+    free_ms(ms);
     return (0);
 }

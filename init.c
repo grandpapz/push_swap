@@ -60,14 +60,12 @@ void        find_min_max(t_stack *array, int range)
 void        create_stack(int ac, char **av, t_ms *ms)
 {
     int i;
-    int top;
 
-    top = ac - 1;
     i = 0;
     while (i < ac)
     {
-        if (validator(ms, av[top - i], i))
-            ms->a->stack[i] = ft_atoi(av[top - i]);
+        if (validator(ms, av[i], i))
+            ms->a->stack[i] = ft_atoi(av[i]);
         else
         {
             free_ms(ms);
