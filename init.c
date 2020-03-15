@@ -1,6 +1,6 @@
 #include "./includes/push_swap.h"
 //  Destructor of main struct.
-void    free_ms(t_ms *ms)
+void        free_ms(t_ms *ms)
 {
     free(ms->a->stack);
     free(ms->b->stack);

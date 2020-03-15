@@ -1,4 +1,10 @@
 #include "./includes/push_swap.h"
+
+int     is_sign(char c)
+{
+    return (c == '-' || c == '+');
+}
+
 //  Split arguments by 'space'
 char    **arg_splt(int *ac, char ***av)
 {
@@ -34,12 +40,11 @@ int main(int ac, char **av)
         av = arg_splt(&ac, &av);
     init_stacks(ms, ac);
     create_stack(ac, av, ms);
-    // printf("Stack A [TOP] < ---- [DNO]: ");
-    // for (i = ms->a->len - 1; i >= 0; i--)
-    //     printf("%d ", ms->a->stack[i]);
-    // printf("\nStack B [TOP] < ---- [DNO]: ");
-    // for (i = ms->b->len - 1; i >= 0; i--)
-    //     printf("%d ", ms->b->stack[i]);
+    if (ms->a->len <= 3)
+        small_stack_sort(ms);
+    printf("Stack A [TOP] < ---- [DNO]: ");
+    for (i = ms->a->len - 1; i >= 0; i--)
+        printf("%d ", ms->a->stack[i]);
     free_ms(ms);
     return (0);
 }

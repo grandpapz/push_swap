@@ -1,5 +1,5 @@
 #ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#define PUSH_SWAP_H
 
 #include "../libft/includes/ft_printf.h"
 #include <limits.h>
@@ -9,23 +9,23 @@
 // Define struct 4 stack
 typedef struct  s_stack
 {
-    int     *stack;
-    int     len;
-    int     max;
-    int     min;
-}              t_stack;
+    int *stack;
+    int len;
+    int max;
+    int min;
+}               t_stack;
 
 // Define Main Struct
 typedef struct  s_ms
 {
-    int     min;
-    int     max;
-    int     total;
+    int min;
+    int max;
+    int total;
     t_stack *a;
     t_stack *b;
 }               t_ms;
 
-// Input reading fucntions
+// Input reading and stack creating fucntions
 char        **arg_splt(int *ac, char ***av);
 int         is_sign(char c);
 int         validator(t_ms *ms, char *str, int i);
@@ -42,4 +42,14 @@ void        swap(t_ms *ms, char c);
 void        rotate(t_stack *array, char c);
 void        revrot(t_stack *array, char c);
 
-#endif 
+//  Sorting
+int         is_sorted(t_stack *stack, int len);
+void        small_stack_sort(t_ms *ms);
+void        less_three_sort(t_ms *ms, t_stack *stack, char c);
+void        mini_sort(t_ms *ms, t_stack *stack, int len);
+void        sort_three(t_ms *ms, t_stack *stack, char c);
+static void top_min(t_ms *ms, t_stack *stack, char c);
+static void top_mid(t_ms *ms, t_stack *stack, char c);
+static void top_max(t_ms *ms, t_stack *stack, char c);
+
+#endif

@@ -30,7 +30,7 @@ void    swap(t_ms *ms, char c)
 
     if (c == 'a')
     {
-        if (ms->b->len > 1 && ms->b->stack[ms->b->len - 2]  /*HERE*/ &&
+        if (ms->b->len > 1 && ms->b->stack[ms->b->len - 2] /*HERE*/ &&
         ms->b->stack[ms->b->len - 1] < ms->b->stack[ms->b->len - 2])
             ss(ms);
         else
