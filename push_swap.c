@@ -40,11 +40,18 @@ int main(int ac, char **av)
         av = arg_splt(&ac, &av);
     init_stacks(ms, ac);
     create_stack(ac, av, ms);
-    if (ms->a->len <= 3)
+    if (ms->a->len <= 6)
         small_stack_sort(ms);
+
+
     printf("Stack A [TOP] < ---- [DNO]: ");
     for (i = ms->a->len - 1; i >= 0; i--)
         printf("%d ", ms->a->stack[i]);
+        printf("\n");
+        printf("Stack B [TOP] < ---- [DNO]: ");
+    for (i = ms->b->len - 1; i >= 0; i--)
+        printf("%d ", ms->b->stack[i]);
+        printf("\n");
     free_ms(ms);
     return (0);
 }

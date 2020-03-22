@@ -61,7 +61,7 @@ static void top_max(t_ms *ms, t_stack *stack, char c)
 void sort_three(t_ms *ms, t_stack *stack, char c)
 {
     if (is_sorted(stack, 3))
-        return;
+        return ;
     find_min_max(stack, 3);
     if (stack->stack[stack->len - 1] == stack->max)
         top_max(ms, stack, c);

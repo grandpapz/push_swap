@@ -25,7 +25,7 @@ typedef struct  s_ms
     t_stack *b;
 }               t_ms;
 
-// Input reading and stack creating fucntions
+//  Input reading and stack creating fucntions
 char        **arg_splt(int *ac, char ***av);
 int         is_sign(char c);
 int         validator(t_ms *ms, char *str, int i);
@@ -44,12 +44,13 @@ void        revrot(t_stack *array, char c);
 
 //  Sorting
 int         is_sorted(t_stack *stack, int len);
+int         is_rev_sorted(t_stack *stack, int len);
 void        small_stack_sort(t_ms *ms);
 void        less_three_sort(t_ms *ms, t_stack *stack, char c);
-void        mini_sort(t_ms *ms, t_stack *stack, int len);
+void        less_seven_sort(t_ms *ms);
+void        mini_sort(t_ms *ms, int len);
+void        mini_sort_b(t_ms *ms, int part);
 void        sort_three(t_ms *ms, t_stack *stack, char c);
-static void top_min(t_ms *ms, t_stack *stack, char c);
-static void top_mid(t_ms *ms, t_stack *stack, char c);
-static void top_max(t_ms *ms, t_stack *stack, char c);
+void        sort_three_b(t_ms *ms, t_stack *stack, char c);
 
 #endif

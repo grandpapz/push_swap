@@ -33,8 +33,8 @@ void        init_stacks(t_ms *ms, int ac)
 {
     ms->a = (t_stack *)malloc(sizeof(t_stack));
     ms->b = (t_stack *)malloc(sizeof(t_stack));
-    ms->a->stack = (int *)malloc(sizeof(int) * (ac - 2));
-    ms->b->stack = (int *)ft_memalloc(sizeof(int) * (ac - 2));
+    ms->a->stack = (int *)malloc(sizeof(int) * (ac));
+    ms->b->stack = (int *)ft_memalloc(sizeof(int) * (ac));
     ms->b->len = 0;
 }
 
@@ -60,12 +60,14 @@ void        find_min_max(t_stack *array, int range)
 void        create_stack(int ac, char **av, t_ms *ms)
 {
     int i;
+    int top;
 
     i = 0;
+    top = ac - 1;
     while (i < ac)
     {
-        if (validator(ms, av[i], i))
-            ms->a->stack[i] = ft_atoi(av[i]);
+        if (validator(ms, av[top - i], i))
+            ms->a->stack[i] = ft_atoi(av[top - i]);
         else
         {
             free_ms(ms);
