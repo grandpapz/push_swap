@@ -42,7 +42,8 @@ int main(int ac, char **av)
     create_stack(ac, av, ms);
     if (ms->a->len <= 6)
         small_stack_sort(ms);
-
+    else
+        devide_stack(ms);
 
     printf("Stack A [TOP] < ---- [DNO]: ");
     for (i = ms->a->len - 1; i >= 0; i--)

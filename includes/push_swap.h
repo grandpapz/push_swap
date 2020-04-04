@@ -52,5 +52,16 @@ void        mini_sort(t_ms *ms, int len);
 void        mini_sort_b(t_ms *ms, int part);
 void        sort_three(t_ms *ms, t_stack *stack, char c);
 void        sort_three_b(t_ms *ms, t_stack *stack, char c);
+void        part_sort_b(t_ms *ms, int part);
+void        part_sort_a(t_ms *ms, int part);
+
+
+//  Stack deviding functions
+void        devide_stack(t_ms *ms);
+int         push_top(t_ms *ms, int part);
+int         push_top_b(t_ms *ms, int part);
+int         find_mid(int min, int max, int range);
+int         ret_sorted_b(t_ms *ms, int part);
+
 
 #endif
