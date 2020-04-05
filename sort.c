@@ -9,7 +9,7 @@ void mini_sort(t_ms *ms, int part)
         sort_three(ms, ms->a, 'a');
 }
 
-void less_three_sort(t_ms *ms, t_stack *stack, char c)
+void less_three_sort(t_ms *ms, t_stack *stack)
 {
     if (is_sorted(stack, stack->len))
         return;
@@ -60,7 +60,7 @@ void small_stack_sort(t_ms *ms)
     if (is_sorted(ms->a, ms->a->len))
         return ;
     if (ms->a->len <= 3)
-        less_three_sort(ms, ms->a, 'a');
+        less_three_sort(ms, ms->a);
     else
         less_seven_sort(ms);
 }

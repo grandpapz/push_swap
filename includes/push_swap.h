@@ -46,7 +46,7 @@ void        revrot(t_stack *array, char c);
 int         is_sorted(t_stack *stack, int len);
 int         is_rev_sorted(t_stack *stack, int len);
 void        small_stack_sort(t_ms *ms);
-void        less_three_sort(t_ms *ms, t_stack *stack, char c);
+void        less_three_sort(t_ms *ms, t_stack *stack);
 void        less_seven_sort(t_ms *ms);
 void        mini_sort(t_ms *ms, int len);
 void        mini_sort_b(t_ms *ms, int part);
