@@ -37,8 +37,6 @@ static void push_back(t_ms *ms, int pb)
             pb--;
         }
     }
-    if (ms->b->stack[ms->b->len - ms->b->len] > ms->b->stack[ms->b->len - 1])
-        revrot(ms->b, 'b');
 }
 
 int         push_top(t_ms *ms, int part)
@@ -48,7 +46,7 @@ int         push_top(t_ms *ms, int part)
     int len;
     int pb;
 
-    find_min_max(ms->b, part);
+    find_min_max(ms->a, part);
     mid = find_mid(ms->a->min, ms->a->max, part);
     len = count_push_sum(ms, part, mid);
     p = len;

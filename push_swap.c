@@ -40,7 +40,7 @@ int main(int ac, char **av)
         av = arg_splt(&ac, &av);
     init_stacks(ms, ac);
     create_stack(ac, av, ms);
-    if (ms->a->len <= 6)
+    if (ms->a->len < 7)
         small_stack_sort(ms);
     else
         devide_stack(ms);

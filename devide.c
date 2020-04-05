@@ -1,5 +1,4 @@
 #include "./includes/push_swap.h"
-
 static int  count_push_sum(t_ms *ms, int part, int mid)
 {
     int counter;
@@ -29,10 +28,10 @@ static int         init_push(t_ms *ms, int part)
 {
     int mid;
     int len;
-
-    if (ms->a->len >= 400)
+    
+    if (ms->a->len > 400)
         mid = ((ms->a->min + ms->a->max) / 3);
-    else    
+    else
         mid = ((ms->a->min + ms->a->max) / 2);
     len = count_push_sum(ms, ms->a->len, mid);
     while (len > 0)

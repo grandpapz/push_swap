@@ -43,7 +43,7 @@ void        find_min_max(t_stack *array, int range)
 {
     int i;
 
-    i = 0;
+    i = array->len - range;
     array->max = INT_MIN;
     array->min = INT_MAX;
     while (i < array->len)

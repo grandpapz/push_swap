@@ -37,7 +37,8 @@ static void push_back(t_ms *ms, int pb)
             pb--;
         }
     }
-    if (ms->b->stack[ms->b->len - ms->b->len] > ms->b->stack[ms->b->len - 1])
+    if (ms->b->stack[ms->b->len - ms->b->len] > 
+        ms->b->stack[ms->b->len - 1])
         revrot(ms->b, 'b');
 }
 
@@ -70,7 +71,6 @@ int         push_top_b(t_ms *ms, int part)
         if (ms->b->stack[ms->b->len - 1] > mid)
         {
             push(ms->b, ms->a, 'a');
-            printf("push_top_b\n");
             len--;
         }
         else
