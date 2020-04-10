@@ -22,18 +22,18 @@ static  void do_rot(t_ms *ms, char *op)
 {
     if (ft_strequ(op, "ra"))
         rotate(ms->a, 'c');
-    else if (ft_strequ(op, 'rb'))
+    else if (ft_strequ(op, "rb"))
         rotate(ms->b, 'c');
-    else if (ft_strequ(op, 'rr'));
+    else if (ft_strequ(op, "rr"))
     {
         rotate(ms->a, 'c');
         rotate(ms->b, 'c');
     }
     if (ft_strequ(op, "rra"))
         revrot(ms->a, 'c');
-    else if (ft_strequ(op, 'rrb'))
+    else if (ft_strequ(op, "rrb"))
         revrot(ms->b, 'c');
-    else if (ft_strequ(op, 'rrr'));
+    else if (ft_strequ(op, "rrr"))
     {
         revrot(ms->a, 'c');
         revrot(ms->b, 'c');
@@ -44,19 +44,19 @@ static  int do_op(t_ms *ms, char *op)
 {
     if (ft_strequ(op, "sa"))
         do_swap(ms, 'a');
-    else if (ft_strequ(op, 'sb'))
+    else if (ft_strequ(op, "sb"))
         do_swap(ms, 'b');
-    else if (ft_strequ(op, 'ss'));
+    else if (ft_strequ(op, "ss"))
     {
         do_swap(ms, 'a');
         do_swap(ms, 'b');
     }
-    else if (ft_strequ(op, 'pa'))
+    else if (ft_strequ(op, "pa"))
         push(ms->b, ms->a, 'c');
-    else if (ft_strequ(op, 'pb'))
+    else if (ft_strequ(op, "pb"))
         push(ms->a, ms->b, 'c');
-    else if (ft_strequ(op, 'ra') || ft_strequ(op, 'rb') || ft_strequ(op, 'rr') ||
-            ft_strequ(op, 'rra') || ft_strequ(op, 'rrb') || ft_strequ(op, 'rrr')
+    else if (ft_strequ(op, "ra") || ft_strequ(op, "rb") || ft_strequ(op, "rr") ||
+            ft_strequ(op, "rra") || ft_strequ(op, "rrb") || ft_strequ(op, "rrr"))
     {
             do_rot(ms, op);
             return(0);
