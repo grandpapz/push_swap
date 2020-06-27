@@ -6,7 +6,7 @@
 #    By: lelida <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/23 19:24:32 by lelida            #+#    #+#              #
-#    Updated: 2020/06/23 19:27:50 by lelida           ###   ########.fr        #
+#    Updated: 2020/06/27 18:46:05 by lelida           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,5 +56,4 @@ fclean: clean
 	@make -C libft/ fclean
 	@rm -f $(NAME1) $(NAME2)
 
-re:
-	clean fclean all
+re:	clean fclean all
