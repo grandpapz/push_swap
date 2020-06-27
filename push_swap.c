@@ -15,6 +15,7 @@
 int	main(int ac, char **av)
 {
 	t_ms *ms;
+	int i;
 
 	if (ac != 2)
 	{
@@ -33,5 +34,9 @@ int	main(int ac, char **av)
 	else
 		devide_stack(ms);
 	free_ms(ms);
+	i = -1;
+	while (av[++i])
+		free(av[i]);
+	free(av);
 	return (0);
 }

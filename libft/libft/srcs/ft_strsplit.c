@@ -1,120 +1,76 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strsplit.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lelida <marvin@42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/25 21:57:47 by lelida            #+#    #+#             */
-/*   Updated: 2019/09/25 21:57:49 by lelida           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_isblank(char const *s, char c)
+static	size_t	ft_scount(char const *s, char c)
 {
-	int blank;
-
-	blank = 1;
-	while (*s)
-	{
-		if (*s != c)
-			blank = 0;
-		s++;
-	}
-	return (blank);
-}
-
-static void	ft_newarraydelimstr(char **array, char const *s, char c)
-{
-	int		j;
-	int		k;
-
-	j = 0;
-	k = 0;
-	while (*s)
-	{
-		if (*s != c)
-			j++;
-		if (*s == c || *(s + 1) == '\0')
-		{
-			array[k] = ft_strnew(j);
-			k++;
-			j = 0;
-		}
-		s++;
-	}
-	array[k] = NULL;
-}
-
-static char	**ft_arraydelim(char const *s, char c)
-{
-	int		i;
-	int		j;
-	char	**array;
+	size_t i;
+	size_t j;
 
 	i = 0;
 	j = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == c)
-			j++;
-		i++;
-	}
-	if (!(array = (char **)malloc((j + 2) * sizeof(char *))))
-		return (NULL);
-	ft_newarraydelimstr(array, s, c);
-	return (array);
-}
-
-static void	ft_fillarraydelim(char **array, const char *s, char c)
-{
-	int		i;
-	int		j;
-	int		k;
-
-	i = 0;
-	j = 0;
-	k = 0;
-	while (s[i] != '\0')
+	while (s[i])
 	{
 		if (s[i] != c)
-		{
-			array[j][k] = s[i];
-			k++;
-		}
-		if (s[i] == c)
-		{
 			j++;
-			k = 0;
-		}
+		while (s[i] != c && s[i + 1])
+			i++;
 		i++;
 	}
+	return (j);
 }
 
-char		**ft_strsplit(char const *s, char c)
+static	size_t	ft_slen(char const *s, char c)
 {
-	char	*str_trim;
-	char	*str_condensed;
-	char	**array;
+	size_t i;
+	size_t ln;
 
-	if (!(s && c))
-		return (NULL);
-	array = NULL;
-	if (ft_isblank(s, c) != 0)
+	i = 0;
+	ln = 0;
+	while (s[i] == c)
+		i++;
+	while (s[i] != c && s[i++])
+		ln++;
+	return (ln);
+}
+
+static	void	ft_clear(char **str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
 	{
-		if (!(array = (char **)malloc(1 * sizeof(char *))))
-			return (NULL);
-		array[0] = NULL;
-		return (array);
+		free(str[i]);
+		i++;
 	}
-	if (!(str_trim = ft_strtrimselect(s, c)))
+	free(str);
+}
+
+char			**ft_strsplit(char const *s, char c)
+{
+	char	**str;
+	size_t	i;
+	size_t	j;
+	size_t	k;
+
+	i = 0;
+	j = 0;
+	if (!s || !(str = (char **)malloc(sizeof(char *) * (ft_scount(s, c) + 1))))
 		return (NULL);
-	if (!(str_condensed = ft_removeselect(str_trim, c)))
-		return (NULL);
-	if (!(array = ft_arraydelim(str_condensed, c)))
-		return (NULL);
-	ft_fillarraydelim(array, str_condensed, c);
-	return (array);
+	while (j < ft_scount(s, c))
+	{
+		if (!(str[j] = (char *)malloc(sizeof(char) * (ft_slen(&s[i], c) + 1))))
+		{
+			ft_clear(str);
+			return (NULL);
+		}
+		k = 0;
+		while (s[i] == c)
+			i++;
+		while (s[i] != c && s[i])
+			str[j][k++] = s[i++];
+		str[j++][k] = '\0';
+	}
+	str[j] = NULL;
+	return (str);
 }

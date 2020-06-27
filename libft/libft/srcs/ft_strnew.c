@@ -16,7 +16,7 @@
 **  If the allocation fails the function returns NULL.
 */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 char	*ft_strnew(size_t size)
 {

@@ -40,7 +40,6 @@ typedef struct	s_ms
 char			**arg_splt(int *ac, char ***av);
 int				is_sign(char c);
 int				validator(t_ms *ms, char *str, int i);
-int				main(int ac, char **av);
 void			init_stacks(t_ms *ms, int ac);
 void			find_min_max(t_stack *array, int range);
 void			create_stack(int ac, char **av, t_ms *ms);

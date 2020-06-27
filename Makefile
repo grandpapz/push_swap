@@ -51,7 +51,7 @@ clean:
 	@make -C libft/ clean
 	@rm -f $(OBJ1) $(OBJ2)
 
-fclean:
+fclean: clean
 	@echo "$(RED) Remove libft & $(NAME1) & $(NAME2) $(RESET)"
 	@make -C libft/ fclean
 	@rm -f $(NAME1) $(NAME2)
