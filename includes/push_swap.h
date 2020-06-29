@@ -67,5 +67,6 @@ int				push_top(t_ms *ms, int part);
 int				push_top_b(t_ms *ms, int part);
 int				find_mid(int min, int max, int range);
 int				ret_sorted_b(t_ms *ms, int part);
+void			ft_usage(void);
 
 #endif

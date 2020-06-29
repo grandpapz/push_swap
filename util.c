@@ -6,7 +6,7 @@
 /*   By: lelida <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 16:35:47 by lelida            #+#    #+#             */
-/*   Updated: 2020/06/29 16:39:39 by lelida           ###   ########.fr       */
+/*   Updated: 2020/06/29 19:55:03 by lelida           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ void	free_str(char *str[])
 		free(str[i]);
 	free(str);
 	str = NULL;
+}
+
+void	ft_usage(void)
+{
+	ft_printf("Usage: ./push_swap [integer array]\n");
+	exit(0);
 }
 
 int		count_str(char *str[])

@@ -19,16 +19,16 @@ int		main(int ac, char *av[])
 
 	str = NULL;
 	if (!av[1])
-	{
-		ft_printf("Usage: ./push_swap [integer array]\n");
-		exit(0);
-	}
+		ft_usage();
 	av++;
 	ac--;
 	ms = (t_ms *)malloc(sizeof(t_ms));
 	if (ac >= 1)
 		str = arg_splt(ac, av);
-	init_stacks(ms, ac);
+	if (ac == 1)
+		init_stacks(ms, count_str(str));
+	else
+		init_stacks(ms, ac);
 	create_stack(str, ms);
 	if (ms->a->len <= 7)
 		small_stack_sort(ms);
