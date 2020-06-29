@@ -24,9 +24,11 @@ void			free_ms(t_ms *ms)
 
 int				validator(t_ms *ms, char *str, int i)
 {
-	if (!ft_isdigit(str[0]) && !is_sign(str[0]))
+	if (!ft_isdigit(str[0]) && (is_sign(str[0] && !ft_isdigit(str[1]))))
 		return (0);
 	if (ft_atoi(str) < INT_MIN || ft_atoi(str) > INT_MAX)
+		return (0);
+	if (ft_atoi(str) == 0 && ft_strlen(str) > 1)
 		return (0);
 	while (i >= 0 && i <= ms->a->len)
 	{
@@ -63,14 +65,17 @@ void			find_min_max(t_stack *array, int range)
 	}
 }
 
-void			create_stack(int ac, char **av, t_ms *ms)
+void			create_stack(char **av, t_ms *ms)
 {
 	int i;
 	int top;
 
 	i = 0;
-	top = ac - 1;
-	while (i < ac)
+	while (av[i])
+		i++;
+	top = i - 1;
+	i = 0;
+	while (av[i])
 	{
 		if (validator(ms, av[top - i], i))
 			ms->a->stack[i] = ft_atoi(av[top - i]);

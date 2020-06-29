@@ -17,18 +17,21 @@ int		is_sign(char c)
 	return (c == '-' || c == '+');
 }
 
-char	**arg_splt(int *ac, char ***av)
+char	**arg_splt(int ac, char *av[])
 {
-	char **str;
+	char	**str;
+	int		i;
 
-	str = ft_strsplit((*av)[0], ' ');
-	(*ac) = 0;
-	while (str && str[*ac])
-		(*ac)++;
-	if (*ac == 0)
+	i = -1;
+	if (ac == 1)
+		str = ft_strsplit(av[0], ' ');
+	else
 	{
-		ft_printf("Error\n");
-		exit(1);
+		if (!(str = (char **)malloc(sizeof(char *) * ac + 1)))
+			exit(1);
+		while (av[++i])
+			str[i] = ft_strdup(av[i]);
+		str[i] = NULL;
 	}
 	return (str);
 }

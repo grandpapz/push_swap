@@ -37,13 +37,15 @@ typedef struct	s_ms
 	t_stack	*b;
 }				t_ms;
 
-char			**arg_splt(int *ac, char ***av);
+char			**arg_splt(int ac, char *av[]);
 int				is_sign(char c);
 int				validator(t_ms *ms, char *str, int i);
 void			init_stacks(t_ms *ms, int ac);
 void			find_min_max(t_stack *array, int range);
-void			create_stack(int ac, char **av, t_ms *ms);
+void			create_stack(char **av, t_ms *ms);
 void			free_ms(t_ms *ms);
+void			free_str(char *str[]);
+int				count_str(char *str[]);
 void			push(t_stack *from, t_stack *to, char c);
 void			ss(t_ms *ms);
 void			swap(t_ms *ms, char c);

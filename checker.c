@@ -6,7 +6,7 @@
 /*   By: lelida <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 14:39:30 by lelida            #+#    #+#             */
-/*   Updated: 2020/06/23 14:45:35 by lelida           ###   ########.fr       */
+/*   Updated: 2020/06/29 16:29:47 by lelida           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,30 +97,31 @@ static void		read_op(t_ms *ms)
 		free(op);
 		op = NULL;
 	}
+	op = NULL;
 	free(op);
 }
 
-int				main(int ac, char **av)
+int				main(int ac, char *av[])
 {
-	t_ms *ms;
+	t_ms	*ms;
+	char	**str;
 
-	if (ac == 1)
+	str = NULL;
+	if (ac < 2)
 		exit(0);
-	if (ac > 2)
-	{
-		ft_printf("usage: ./checker ['integer stack']\n");
-		exit(0);
-	}
 	av++;
 	ac--;
 	ms = (t_ms *)malloc(sizeof(t_ms));
+	if (ac >= 1)
+		str = arg_splt(ac, av);
 	if (ac == 1)
-		av = arg_splt(&ac, &av);
-	init_stacks(ms, ac);
-	create_stack(ac, av, ms);
-	if (!(is_sorted(ms->a, ms->total)))
-		read_op(ms);
-	if (is_sorted(ms->a, ms->total))
+		init_stacks(ms, count_str(str));
+	else
+		init_stacks(ms, ac);
+	create_stack(str, ms);
+	free_str(str);
+	read_op(ms);
+	if (is_sorted(ms->a, ms->total) && ms->b->len == 0)
 		ft_printf("OK\n");
 	else
 		ft_printf("KO\n");

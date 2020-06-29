@@ -14,10 +14,10 @@ NAME1 = push_swap
 NAME2 = checker
 SRC1 = push_swap.c devide.c init.c op.c part_sort_a.c \
 		part_sort_b.c push_top.c push_top_b.c sort.c sort2.c \
-		sort_b.c sort_b2.c arg_splt.c
+		sort_b.c sort_b2.c arg_splt.c util.c
 SRC2 = checker.c init.c op.c arg_splt.c sort.c \
 		part_sort_a.c part_sort_b.c sort2.c sort_b.c sort_b2.c \
-		push_top.c push_top_b.c	
+		push_top.c push_top_b.c	util.c
 OBJ1 = $(patsubst %.c, %.o, $(SRC1))
 OBJ2 = $(patsubst %.c, %.o, $(SRC2))
 LIBFT = -I libft/includes -L libft -lft
