@@ -1,0 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lelida <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/09 14:52:55 by lelida            #+#    #+#             */
+/*   Updated: 2020/07/09 14:52:57 by lelida           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "includes/libft.h"
+
+void	*ft_memset(void *b, int c, size_t len)
+{
+	unsigned char *p;
+
+	if (len == 0)
+		return (b);
+	p = (unsigned char *)b;
+	while (len--)
+	{
+		*p = (unsigned char)c;
+		if (len)
+			p++;
+	}
+	return (b);
+}

@@ -5,68 +5,78 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lelida <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/23 18:57:48 by lelida            #+#    #+#             */
-/*   Updated: 2020/06/23 19:02:07 by lelida           ###   ########.fr       */
+/*   Created: 2020/07/09 13:29:37 by lelida            #+#    #+#             */
+/*   Updated: 2020/07/09 13:29:40 by lelida           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "../libft/includes/ft_printf.h"
-# include "../libft/libft/includes/get_next_line.h"
-# include "../libft/libft/includes/libft.h"
-# include <limits.h>
-# include <stdlib.h>
-# include <stdio.h>
+# include "../libft/includes/libft.h"
 
-typedef struct	s_stack
+# define OK				"\033[32;1mOK\033[00m"
+# define KO				"\033[31;1mKO\033[00m"
+
+# define OPT_V			(1 << 0)
+
+# define A				(0)
+# define B				(1)
+
+# define SIZE			(50000)
+
+typedef struct		s_node
 {
-	int *stack;
-	int len;
-	int max;
-	int min;
-}				t_stack;
+	struct s_node	*next;
+	struct s_node	*prev;
+	int				data;
+}					t_node;
 
-typedef struct	s_ms
+typedef struct		s_linklist
 {
-	int		min;
-	int		max;
-	int		total;
-	t_stack	*a;
-	t_stack	*b;
-}				t_ms;
+	t_node			*head;
+	t_node			*tail;
+	int				size;
+	char			letter;
+}					t_linklist;
 
-char			**arg_splt(int ac, char *av[]);
-int				is_sign(char c);
-int				validator(t_ms *ms, char *str, int i);
-void			init_stacks(t_ms *ms, int ac);
-void			find_min_max(t_stack *array, int range);
-void			create_stack(char **av, t_ms *ms);
-void			free_ms(t_ms *ms);
-void			free_str(char *str[]);
-int				count_str(char *str[]);
-void			push(t_stack *from, t_stack *to, char c);
-void			ss(t_ms *ms);
-void			swap(t_ms *ms, char c);
-void			rotate(t_stack *array, char c);
-void			revrot(t_stack *array, char c);
-int				is_sorted(t_stack *stack, int len);
-int				is_rev_sorted(t_stack *stack, int len);
-void			small_stack_sort(t_ms *ms);
-void			less_three_sort(t_ms *ms, t_stack *stack);
-void			less_seven_sort(t_ms *ms);
-void			mini_sort(t_ms *ms, int len);
-void			mini_sort_b(t_ms *ms, int part);
-void			sort_three(t_ms *ms, t_stack *stack, char c);
-void			sort_three_b(t_ms *ms, t_stack *stack, char c);
-void			part_sort_b(t_ms *ms, int part);
-void			part_sort_a(t_ms *ms, int part);
-void			devide_stack(t_ms *ms);
-int				push_top(t_ms *ms, int part);
-int				push_top_b(t_ms *ms, int part);
-int				find_mid(int min, int max, int range);
-int				ret_sorted_b(t_ms *ms, int part);
-void			ft_usage(void);
+typedef struct		s_stack
+{
+	int				opt;
+	int				fd;
+	int				print;
+	int				push[2][SIZE];
+	int				num_a;
+	int				num_b;
+	int				count;
+	t_linklist		*stack[2];
+}					t_stack;
+
+int					init_stack(t_stack *stack, char *av[]);
+char				**get_arg(t_stack *stack, char *av[]);
+t_linklist			*creat_linkedlist(char stack);
+int					check_stack(char **str);
+void				free_stack(t_stack *stack);
+void				free_str(char **str);
+int					get_median(t_stack *stack, int stk, int num);
+int					is_substack(t_stack *stack, int med, int s);
+int					issort(t_linklist *stack);
+void				print_error(void);
+void				print_operation(t_stack *stack, const char *str, \
+									const char let);
+void				print_stack(t_node *src, t_node *dst, char *opt, \
+								t_stack *st);
+void				sort_stack(t_stack *stack);
+void				mini_sort(t_linklist *lst, t_stack *stack);
+void				quick_sort(t_stack *stack);
+void				merger_stack(t_stack *stack, int med);
+void				split_stack(t_stack *stack, int med);
+void				rotate(t_linklist *lst, t_stack *stack);
+void				revrotate(t_linklist *lst, t_stack *stack);
+void				swap(t_linklist *lst, t_stack *stack);
+void				push(t_linklist *src, t_linklist *dst, t_stack *stack);
+void				doub_opt(t_stack *stack, char *op, void (*f)(t_linklist *,\
+							t_stack *));
+void				ps_operations(char *op, t_linklist *src, t_stack *st);
 
 #endif

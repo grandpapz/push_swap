@@ -5,55 +5,64 @@
 #                                                     +:+ +:+         +:+      #
 #    By: lelida <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/06/23 19:24:32 by lelida            #+#    #+#              #
-#    Updated: 2020/06/27 18:46:05 by lelida           ###   ########.fr        #
+#    Created: 2020/07/09 13:29:16 by lelida            #+#    #+#              #
+#    Updated: 2020/07/09 13:29:25 by lelida           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME1 = push_swap
-NAME2 = checker
-SRC1 = push_swap.c devide.c init.c op.c part_sort_a.c \
-		part_sort_b.c push_top.c push_top_b.c sort.c sort2.c \
-		sort_b.c sort_b2.c arg_splt.c util.c
-SRC2 = checker.c init.c op.c arg_splt.c sort.c \
-		part_sort_a.c part_sort_b.c sort2.c sort_b.c sort_b2.c \
-		push_top.c push_top_b.c	util.c
-OBJ1 = $(patsubst %.c, %.o, $(SRC1))
-OBJ2 = $(patsubst %.c, %.o, $(SRC2))
-LIBFT = -I libft/includes -L libft -lft
-CC = gcc
-FLG = -Wall -Wextra -Werror
+TARGETA	:= push_swap
+TARGETB := checker
+CFLAGS 	:= -c -Wall -Werror -Wextra
+CC		:= gcc
+LIBFT	:= libft/*.c libft/pft/*.c libft/includes/*.h
+SRCF 	:= srcs/validation.c srcs/init.c srcs/operations.c srcs/get_arg.c srcs/utility.c srcs/print_stack.c srcs/sort.c srcs/quicksort.c
+SRC_PW	:= srcs/push_swap.c
+SRC_CH	:= srcs/checker.c
+OBJF 	:= $(addprefix obj/, $(notdir $(SRCF:.c=.o)))
+OBJ_PW	:= $(addprefix obj/, $(notdir $(SRC_PW:.c=.o)))
+OBJ_CH	:= $(addprefix obj/, $(notdir $(SRC_CH:.c=.o)))
+INC		:= includes/push_swap.h
+MOV		:= moving
 
-# COLORS
+YELLOW 	:= \033[33;1m
+GREEN 	:= \033[32;1m
+WHITE	:= \033[39;1m
+EOC		:= \033[00m
 
-GREEN = \033[0;32m
-RED = \033[0;31m
-RESET = \033[0m
+all: $(TARGETA) $(TARGETB)
 
-.PHONY: all clean fclean re
+$(TARGETA): $(OBJ_PW) $(OBJF)
+	@$(CC) $^ -o $@ libft/libft.a
+	@echo "$(WHITE)$(TARGETA)$(EOC) $(GREEN)compiling completed$(EOC)"
 
-all: $(NAME1) $(NAME2)
+$(TARGETB): $(OBJ_CH) $(OBJF)
+	@$(CC) $^ -o $@ libft/libft.a
+	@echo "$(WHITE)$(TARGETB)$(EOC) $(GREEN)  compiling completed$(EOC)"
 
-$(NAME1): $(SRC1)
-	@echo "$(GREEN) Compiling libft $(RESET)"
-	@make -C libft/
-	@echo "$(GREEN) Compiling push_swap $(RESET)"
-	@$(CC) $(FLG) -I libft/includes -c $(SRC1)
-	@$(CC) -o $(NAME1) $(OBJ1) $(LIBFT)
+$(OBJF): $(SRCF) $(INC) $(LIBFT)
+	@cd libft/ && make
+	@$(CC) $(CFLAGS) -I $(INC) $(SRCF)
+	@mkdir -p obj && mv *.o obj/
 
-$(NAME2): $(SRC2)
-	@echo "$(GREEN) Compiling checker $(RESET)"
-	@$(CC) $(FLG) -I libft/includes -c $(SRC2)
-	@$(CC) -o $(NAME2) $(OBJ2) $(LIBFT)
+$(OBJ_PW): $(SRC_PW) $(SRCF) $(INC)
+	@$(CC) $(CFLAGS) $< -I $(INC)
+	@mkdir -p obj && mv *.o obj/
+
+$(OBJ_CH): $(SRC_CH) $(SRCF) $(INC)
+	@$(CC) $(CFLAGS) $< -I $(INC)
+	@mkdir -p obj && mv *.o obj/
 
 clean:
-	@echo "$(RED) Remove .o files $(RESET)"
-	@make -C libft/ clean
-	@rm -f $(OBJ1) $(OBJ2)
+	@rm -rf *.o obj includes/push_swap.h.gch
+	@cd libft/ && make clean
+	@echo "$(WHITE)obj files$(EOC) $(YELLOW)removed$(EOC)"
 
 fclean: clean
-	@echo "$(RED) Remove libft & $(NAME1) & $(NAME2) $(RESET)"
-	@make -C libft/ fclean
-	@rm -f $(NAME1) $(NAME2)
+	@rm -f $(TARGETA) $(TARGETB) OPERATIONS.txt
+	@cd libft/ && make fclean
+	@echo "$(WHITE)$(TARGETA)$(EOC) $(YELLOW)removed$(EOC)"
+	@echo "$(WHITE)$(TARGETB)$(EOC) $(YELLOW)  removed$(EOC)"
 
-re:	clean fclean all
+re: fclean all
+
+.PHONY: clean fclean re all

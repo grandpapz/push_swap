@@ -5,61 +5,49 @@
 #                                                     +:+ +:+         +:+      #
 #    By: lelida <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/01/30 18:20:27 by lelida            #+#    #+#              #
-#    Updated: 2020/01/30 18:21:00 by lelida           ###   ########.fr        #
+#    Created: 2020/07/09 13:39:24 by lelida            #+#    #+#              #
+#    Updated: 2020/07/09 13:39:27 by lelida           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+NAME		:= libft.a
+CC			:= gcc
+CFLAGS		:= -c -Wall -Werror -Wextra
+INC			:= includes/*.h
+FILES		:= 	ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c ft_memchr.c ft_memcmp.c ft_strcpy.c ft_strncpy.c ft_strcat.c \
+				ft_strncat.c ft_strlen.c ft_strlcat.c ft_strchr.c ft_strrchr.c ft_strstr.c ft_strnstr.c ft_strcmp.c ft_strncmp.c \
+				ft_atoi.c ft_isalpha.c ft_isalnum.c ft_isdigit.c ft_isascii.c ft_isprint.c ft_toupper.c ft_tolower.c ft_memccpy.c ft_strdup.c \
+				ft_memalloc.c ft_memdel.c ft_strnew.c ft_strdel.c ft_strclr.c ft_striter.c ft_striteri.c ft_strmap.c ft_strmapi.c ft_strequ.c ft_strnequ.c \
+				ft_strsub.c ft_strjoin.c ft_strtrim.c ft_strsplit.c ft_itoa.c ft_putchar.c ft_putstr.c ft_putendl.c ft_putnbr_fd.c ft_putnbr.c ft_putchar_fd.c \
+				ft_putstr_fd.c ft_putendl_fd.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_iscntrl.c ft_isgraph.c ft_isblank.c \
+				ft_islower.c ft_isupper.c get_next_line.c ft_strrev.c ft_dectostr.c ft_strchrpos.c ft_power.c \
+				pft/ft_printf.c pft/parse_specifier.c pft/get_param.c pft/print_txt.c pft/print_hexadecimal.c pft/print_nbr.c pft/signed_nbr.c pft/unsigned_nbr.c \
+				pft/print_octal.c pft/print_float.c pft/util_fl/convers_fl.c pft/util_fl/match_fl.c
+OBJ		= $(addprefix obj/, $(notdir $(FILES:.c=.o)))
 
-SRCS_PATH = src
-
-SRCS_FILES = ft_printf.c\
-				format_type.c \
-				parse_format.c \
-				printf_int.c \
-				printf_str.c \
-				printf_additional_char.c \
-				ft_put_space.c \
-				precision.c \
-				printf_additional_char_str.c \
-				reload_width_pointer.c \
-				all_for_float.c \
-				reload_float.c \
-
-SRCS = $(addprefix $(SRCS_PATH)/, $(SRCS_FILES))
-
-OBJ_PATH = obj
-
-OBJS = $(addprefix $(OBJ_PATH)/, $(SRCS_FILES:.c=.o))
-
-FLAGS = -Wall -Wextra -Werror
-
-H_PATH = includes
-
-LIB_PATH = libft
+YELLOW 	:= \033[33;1m
+GREEN 	:= \033[32;1m
+WHITE	:= \033[39;1m
+EOC		:= \033[00m
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@make -C $(LIB_PATH)
-	@cp libft/libft.a ./$(NAME)
-	@ar rc $(NAME) $(OBJS)
+$(NAME): $(OBJ)
+	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@echo "libftprintf.a created"
+	@echo "$(WHITE)$(NAME)$(EOC) $(GREEN)  compiling completed$(EOC)"
 
-$(OBJ_PATH)/%.o: $(SRCS_PATH)/%.c $(H_PATH)/ft_printf.h
-	@mkdir -p $(OBJ_PATH)
-	@gcc $(FLAGS) -I $(H_PATH) -I $(LIB_PATH) -o $@ -c $<
+$(OBJ): $(FILES)
+	@$(CC) $(CFLAGS) -I $(INC) $^
+	@mkdir -p obj && mv *.o obj/
 
 clean:
-	@rm -rf $(OBJ_PATH)
-	@make clean -C $(LIB_PATH)
+	@rm -rf $(OBJ) obj includes/*.gch
 
-fclean:
+fclean: clean
 	@rm -f $(NAME)
-	@rm -f $(OBJS)
-	@rm -rf $(OBJ_PATH)
-	@make fclean -C $(LIB_PATH)
+	@echo "$(WHITE)$(NAME)$(EOC) $(YELLOW)  removed$(EOC)"
 
 re: fclean all
+
+.PHONY: clean fclean all re

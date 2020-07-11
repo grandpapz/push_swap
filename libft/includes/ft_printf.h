@@ -5,93 +5,104 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lelida <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/30 18:21:58 by lelida            #+#    #+#             */
-/*   Updated: 2020/01/30 18:56:00 by lhitmonc         ###   ########.fr       */
+/*   Created: 2020/07/09 15:00:04 by lelida            #+#    #+#             */
+/*   Updated: 2020/07/09 15:00:06 by lelida           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-# include <ctype.h>
+
+# include "libft.h"
 # include <stdarg.h>
-# include <limits.h>
-# include <unistd.h>
-# include <string.h>
-# include <stdlib.h>
-# include "../libft/includes/libft.h"
-# include <stdint.h>
-# include <wchar.h>
+# include <stdio.h>
 
-typedef struct			s_mod
+/*
+** double data structure
+*/
+
+typedef struct			s_param
 {
-	int		nomod;
-	int		h;
-	int		hh;
-	int		l;
-	int		ll;
-	int		kek;
-}						t_mod;
+	struct				s_flag
+	{
+		char			plus;
+		char			minus;
+		char			space;
+		char			zero;
+		char			hash;
+		char			dot;
+	}					t_flag;
+	int					modifier;
+	char				specifier;
+	int					width;
+	int					precision;
+	int					tmp;
+	int					nul;
+}						t_param;
 
-typedef struct			s_flag
-{
-	int		hash;
-	int		zero;
-	int		minus;
-	int		plus;
-	int		precision;
-	int		width;
-	int		space;
-}						t_flag;
+# define PRINT_ERROR	-1
+# define SPECIFIER		"cspdiouxXf"
+# define FLAGS			"+- #0"
+# define PREFIX 		"0x"
+# define PREFIX_UP 		"0X"
+# define SPEC_LEN		10
 
-typedef struct			s_tab
-{
-	char	*format;
-	char	*out;
-	int		ret;
-	int		fd;
-	int		i;
-	int		sign;
-	va_list	list;
-	t_flag	flag;
-	t_mod	mod;
-}						t_tab;
+# define PLUS			'+'
+# define MINUS			'-'
+# define SPACE			' '
+# define HASH			'#'
+# define ZERO			'0'
+# define DOT			'.'
+# define PERCENT		'%'
 
-void					huba_buba(t_tab *tab);
-int						ft_printf(const char *s, ...);
-void					parse_format(t_tab *tab);
-void					parse_mod(t_tab *tab);
-void					parse_flag(t_tab *tab);
-void					parse_specifier(t_tab *tab);
-void					format_int(t_tab *tab);
-void					printf_int(t_tab *tab);
-void					format_str(t_tab *tab);
-void					printf_str(t_tab *tab);
-void					format_char(t_tab *tab);
-void					printf_char(t_tab *tab, char c);
-void					format_base(t_tab *tab);
-void					printf_base(t_tab *tab);
-void					format_pointer(t_tab *tab);
-void					printf_pointer(t_tab *tab);
-int						get_number_tab(t_tab *tab);
-void					printf_null(t_tab *tab);
-void					printf_width(t_tab *tab);
-void					ft_put_space(t_tab *tab);
-void					ft_put_space_zero(t_tab *tab);
-void					printf_hash(t_tab *tab);
-void					reload_output_with_precision(t_tab *tab);
-void					format_percent(t_tab *tab);
-void					ft_check_sign(t_tab *tab);
-void					printf_sign(t_tab *tab);
-void					initialisation(t_tab *tab);
-void					printf_width_str(t_tab *tab);
-void					printf_width_char(t_tab *tab);
-void					reload_output_with_pointer(t_tab *tab);
-void					printf_pointer_width(t_tab *tab);
-void					format_float(t_tab *tab);
-void					printf_float(t_tab *tab, long double output);
-void					reload_float(t_tab *tab, long double output);
-long					get_prec_num_f(long double d, int prec);
-char					*ft_float_itoa(long double d);
-char					*ft_str_prec(char *s1, int dot, int end, int hash);
-void					print_prec_width(t_tab *tab);
+# define SPEC_C			'c'
+# define SPEC_S			's'
+# define SPEC_P			'p'
+# define SPEC_D			'd'
+# define SPEC_I			'i'
+# define SPEC_O			'o'
+# define SPEC_U			'u'
+# define SPEC_LOW_X		'x'
+# define SPEC_UP_X		'X'
+# define SPEC_F			'f'
+
+# define H				1
+# define HH				2
+# define L				4
+# define LL				8
+# define UPP_L			16
+# define UPP_D			32
+
+/*
+** prototypes of basic functions
+*/
+
+int						ft_printf(const char *format, ...);
+int						pars_specifier(const char **specif, t_param *param);
+int						get_param(const char **pf, t_param *param);
+char					verif_sign(t_param *param, intmax_t nbr);
+char					*get_bin(unsigned char c);
+int						get_exponent(char *exp, int len, int correct);
+int						*get_mantisa(char *mant, int *len);
+int						*sort_bigint(int *mant, int *len);
+int						*divide_bigint(int *mant, int exp, int *len);
+int						*multiply_bigint(int *mant, int exp, int *len);
+int						ft_unbrlen(uintmax_t nbr, int div);
+
+/*
+** prototypes print function
+*/
+
+void					print_space(int offset, char flag);
+int						find_percent(const char **pf, t_param *pm);
+int						print_char(t_param *param, va_list args);
+int						print_string(t_param *param, va_list args);
+int						print_hexadecimal(t_param *param, va_list args);
+int						print_octal(t_param *param, va_list args);
+int						print_decimal(t_param *param, va_list args);
+int						print_signed(intmax_t nbr, t_param *param);
+int						print_unsigned(uintmax_t nbr, t_param *param);
+int						printf_float(va_list args, t_param *param);
+int						print_no_specifier(t_param *pm, const char **pf);
+
 #endif
